@@ -4,7 +4,7 @@ if (process.env.NODE_ENV === 'development') {
   require('../index.html');
 }
 
-console.log('webpack starterkit');
+// console.log('webpack starterkit');
 
 class Keyboard {
   constructor(keys) {
@@ -23,7 +23,7 @@ class Keyboard {
         case 'black': 
           cls+= ' key__black';
       }
-      return `<div class="${cls}"></div>`;
+      return `<div class="${cls}" data-id=${key.id}></div>`;
     });
     let htmlString = html.join('');
     keyboard.innerHTML = htmlString;
@@ -89,7 +89,7 @@ function getKeys() {
       url: '...',
     },
     {
-      id: 4,
+      id: 12,
       color: 'white',
       url: '...',
     },
@@ -100,6 +100,32 @@ function getKeys() {
 
 function init() {
   getKeys();
+  pushKeys();
 }
 
 init();
+
+
+function removeClassPush(key) {
+  key.classList.remove('key-push');
+}      
+
+function soundClick() {
+  let audio = new Audio();
+  audio.src = 'src/audio/sound.wav';
+  audio.autoplay = true;
+}
+
+
+function pushKeys() {
+  document.addEventListener('click', function(e) {
+
+    if(e.target.className === 'key key__white' || e.target.className === 'key key__black') {
+      console.log(e.target);
+      let key = e.target;
+      soundClick();
+      key.classList.add('key-push');
+      setTimeout(removeClassPush, 300, key);
+    }
+  });
+}
