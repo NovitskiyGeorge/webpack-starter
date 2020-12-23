@@ -98,9 +98,33 @@ function getKeys() {
   keyboard.createKeyboard();
 }
 
+class Tools {
+  constructor(selectClef) {
+    this.selectClef = selectClef;
+  }
+  addHTML() {
+    let main = document.querySelector('.main');
+    let instruments = document.createElement('tools');
+    instruments.innerHTML = this.selectClef;
+    main.appendChild(instruments);
+  }
+}
+
+function getSelect() {
+  let selectClef = `
+  <select>
+    <option data-name=${'treble'}>Пункт 1</option>
+    <option>Пункт 2</option>
+  </select data-name=${'bass'}>`;
+  let tools = new Tools(selectClef);
+  tools.addHTML();
+}
+
+
 function init() {
   getKeys();
   pushKeys();
+  getSelect();
 }
 
 init();
@@ -129,3 +153,4 @@ function pushKeys() {
     }
   });
 }
+
