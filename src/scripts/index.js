@@ -6,14 +6,12 @@ if (process.env.NODE_ENV === 'development') {
 
 console.log('webpack starterkit');
 
-
-
 class Keyboard {
   constructor(keys) {
     this.keys = keys;
   }
   createKeyboard() {
-    let main = document.querySelector('.main');
+    let piano = document.querySelector('.piano');
     let keyboard = document.createElement('div');
     keyboard.className = 'keyboard';
     let html = this.keys.map(key => {
@@ -29,7 +27,7 @@ class Keyboard {
     });
     let htmlString = html.join('');
     keyboard.innerHTML = htmlString;
-    main.appendChild(keyboard);
+    piano.appendChild(keyboard);
   }
 }
 
@@ -52,15 +50,53 @@ function getKeys() {
     },
     {
       id: 4,
+      color: 'black',
+      url: '...',
+    },
+    {
+      id: 5,
       color: 'white',
       url: '...',
-    }
+    },
+    {
+      id: 6,
+      color: 'white',
+      url: '...',
+    },
+    {
+      id: 7,
+      color: 'black',
+      url: '...',
+    },
+    {
+      id: 8,
+      color: 'white',
+      url: '...',
+    },
+    {
+      id: 9,
+      color: 'black',
+      url: '...',
+    },
+    {
+      id: 10,
+      color: 'white',
+      url: '...',
+    },
+    {
+      id: 11,
+      color: 'black',
+      url: '...',
+    },
+    {
+      id: 4,
+      color: 'white',
+      url: '...',
+    },
   ];
   let keyboard = new Keyboard(keys);  
   keyboard.createKeyboard();
 }
-
-
 
 function init() {
   getKeys();

@@ -14,21 +14,47 @@ body {
   background-color: rgb(211, 211, 211);
 }
 
+.piano {
+  border: 2px solid #000;
+  &__panel {
+    height: 60px;
+    width: 100%;
+    background-color: #000;
+  }
+  &__redLine {
+    height: 5px;
+    width: 100%;
+    background-color: #CA0000;
+  }
+}
+
 .keyboard {
   display: flex;
+  position: relative;
   justify-content: space-between;
-  width: 600px;
+  min-width: 300px;
   height: 200px;
   background-color: rgba(255, 255, 255, 0.5);
+  
 }
 
 .key {
-  width: 50px;
+  width: 40px;
   height: 200px;
   &__white {
     background-color: rgb(255, 255, 255);
+    border: 1px solid #000;
   }
   &__black {
+    position: absolute;
+    width: 20px;
+    height: 120px;
     background-color: rgb(0, 0, 0);
+    &:nth-child(2) {
+      left: 11%;
+    }
+    &:nth-child(3) {
+      left: 60px;
+    }
   }
 }
