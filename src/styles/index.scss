@@ -4,3 +4,31 @@ body {
   color: $body-color;
   font-family: sans-serif;
 }
+
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1400px;
+  height: 600px;
+  background-color: rgb(211, 211, 211);
+}
+
+.keyboard {
+  display: flex;
+  justify-content: space-between;
+  width: 600px;
+  height: 200px;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.key {
+  width: 50px;
+  height: 200px;
+  &__white {
+    background-color: rgb(255, 255, 255);
+  }
+  &__black {
+    background-color: rgb(0, 0, 0);
+  }
+}
