@@ -41,7 +41,7 @@ function getKeys() {
     {
       id: 2,
       color: 'black',
-      url: 'src/audio/do.wav',
+      url: 'src/audio/doDies.wav',
     },
     {
       id: 3,
@@ -51,7 +51,7 @@ function getKeys() {
     {
       id: 4,
       color: 'black',
-      url: 'src/audio/lya.wav',
+      url: 'src/audio/faDies.wav',
     },
     {
       id: 5,
@@ -61,7 +61,7 @@ function getKeys() {
     {
       id: 6,
       color: 'white',
-      url: 'src/audio/mi.wav',
+      url: 'src/audio/lyaDies.wav',
     },
     {
       id: 7,
@@ -76,7 +76,7 @@ function getKeys() {
     {
       id: 9,
       color: 'black',
-      url: 'src/audio/re.wav',
+      url: 'src/audio/reDies.wav',
     },
     {
       id: 10,
@@ -86,12 +86,12 @@ function getKeys() {
     {
       id: 11,
       color: 'black',
-      url: 'src/audio/si.wav',
+      url: 'src/audio/sol.wav',
     },
     {
       id: 12,
       color: 'white',
-      url: 'src/audio/sol.wav',
+      url: 'src/audio/solDies.wav',
     },
   ];
   let keyboard = new Keyboard(keys);  
