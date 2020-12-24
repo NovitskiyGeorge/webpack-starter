@@ -23,7 +23,7 @@ class Keyboard {
         case 'black': 
           cls+= ' key__black';
       }
-      return `<div class="${cls}" data-id=${key.id}></div>`;
+      return `<div class="${cls}" data-id=${key.id} data-url=${key.url}></div>`;
     });
     let htmlString = html.join('');
     keyboard.innerHTML = htmlString;
@@ -36,62 +36,62 @@ function getKeys() {
     {
       id: 1,
       color: 'white',
-      url: '...',
+      url: 'src/audio/do.wav',
     },
     {
       id: 2,
       color: 'black',
-      url: '...',
+      url: 'src/audio/do.wav',
     },
     {
       id: 3,
       color: 'white',
-      url: '...',
+      url: 'src/audio/fa.wav',
     },
     {
       id: 4,
       color: 'black',
-      url: '...',
+      url: 'src/audio/lya.wav',
     },
     {
       id: 5,
       color: 'white',
-      url: '...',
+      url: 'src/audio/lya.wav',
     },
     {
       id: 6,
       color: 'white',
-      url: '...',
+      url: 'src/audio/mi.wav',
     },
     {
       id: 7,
       color: 'black',
-      url: '...',
+      url: 'src/audio/mi.wav',
     },
     {
       id: 8,
       color: 'white',
-      url: '...',
+      url: 'src/audio/re.wav',
     },
     {
       id: 9,
       color: 'black',
-      url: '...',
+      url: 'src/audio/re.wav',
     },
     {
       id: 10,
       color: 'white',
-      url: '...',
+      url: 'src/audio/si.wav',
     },
     {
       id: 11,
       color: 'black',
-      url: '...',
+      url: 'src/audio/si.wav',
     },
     {
       id: 12,
       color: 'white',
-      url: '...',
+      url: 'src/audio/sol.wav',
     },
   ];
   let keyboard = new Keyboard(keys);  
@@ -105,25 +105,22 @@ function init() {
 
 init();
 
-
 function removeClassPush(key) {
   key.classList.remove('key-push');
 }      
 
-function soundClick() {
+function soundClick(keyUrl) {
   let audio = new Audio();
-  audio.src = 'src/audio/sound.wav';
+  audio.src = keyUrl;
   audio.autoplay = true;
 }
 
-
 function pushKeys() {
   document.addEventListener('click', function(e) {
-
     if(e.target.className === 'key key__white' || e.target.className === 'key key__black') {
-      console.log(e.target);
       let key = e.target;
-      soundClick();
+      let keyUrl = e.target.dataset.url;
+      soundClick(keyUrl);
       key.classList.add('key-push');
       setTimeout(removeClassPush, 300, key);
     }
