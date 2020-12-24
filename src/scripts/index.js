@@ -31,69 +31,8 @@ class Keyboard {
   }
 }
 
-function getKeys() {
-  let keys = [
-    {
-      id: 1,
-      color: 'white',
-      url: 'src/audio/do.wav',
-    },
-    {
-      id: 2,
-      color: 'black',
-      url: 'src/audio/doDies.wav',
-    },
-    {
-      id: 3,
-      color: 'white',
-      url: 'src/audio/re.wav',
-    },
-    {
-      id: 4,
-      color: 'black',
-      url: 'src/audio/reDies.wav',
-    },
-    {
-      id: 5,
-      color: 'white',
-      url: 'src/audio/mi.wav',
-    },
-    {
-      id: 6,
-      color: 'white',
-      url: 'src/audio/fa.wav',
-    },
-    {
-      id: 7,
-      color: 'black',
-      url: 'src/audio/faDies.wav',
-    },
-    {
-      id: 8,
-      color: 'white',
-      url: 'src/audio/sol.wav',
-    },
-    {
-      id: 9,
-      color: 'black',
-      url: 'src/audio/solDies.wav',
-    },
-    {
-      id: 10,
-      color: 'white',
-      url: 'src/audio/lya.wav',
-    },
-    {
-      id: 11,
-      color: 'black',
-      url: 'src/audio/lyaDies.wav',
-    },
-    {
-      id: 12,
-      color: 'white',
-      url: 'src/audio/si.wav',
-    },
-  ];
+function getKeys(keys) {  
+  console.log(keys);
   let keyboard = new Keyboard(keys);  
   keyboard.createKeyboard();
 }
@@ -149,7 +88,6 @@ function selectStaff() {
 
 
 function init() {
-  getKeys();
   pushKeys();
   getSelect();
   selectStaff();
@@ -179,3 +117,29 @@ function pushKeys() {
     }
   });
 }
+
+let users = [];
+let keys = [];
+
+let usersPromise = fetch('http://localhost:3000/users').then(res => {
+  return res.json();
+});
+
+// usersPromise.then(
+//   res => {
+//     let keys = res;
+//     getKeys(keys);
+//     console.log(keys);
+//   },
+//   err => {
+//     debugger;
+//   }
+// );
+
+let keysPromise = fetch('http://localhost:3000/keys').then(res => {
+  return res.json();
+});
+
+Promise.all([keysPromise, usersPromise]).then(date =>{
+  console.log(date);  
+});
