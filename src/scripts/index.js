@@ -120,7 +120,6 @@ function getSelect() {
   tools.addHTML();
 }
 
-
 function init() {
   getKeys();
   pushKeys();
