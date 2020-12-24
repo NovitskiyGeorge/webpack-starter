@@ -98,32 +98,62 @@ function getKeys() {
   keyboard.createKeyboard();
 }
 class Tools {
-  constructor(selectClef) {
-    this.selectClef = selectClef;
+  constructor(nameTools) {
+    this.nameTools = nameTools;
   }
-  addHTML() {
+  addSelect() {
     let main = document.querySelector('.main');
     let instruments = document.createElement('div');
     instruments.className = 'tools';
-    instruments.innerHTML = this.selectClef;
-    main.appendChild(instruments);
+    instruments.innerHTML = this.nameTools;
+    main.prepend(instruments);
   }
+  changeMusicStaff() {
+    debugger;
+    let nameClassStaff = 'treble';
+    let musicStaff = document.querySelector(`.musicStaff-${nameClassStaff}`);    
+    if(this.nameTools === 'bass') {
+      nameClassStaff = 'bass';
+    }
+    musicStaff.className = `musicStaff-${this.nameTools}`;
+  }
+
+}
+
+function createMusicStaff() {
+  let main = document.querySelector('.main');    
+  let musicStaff = document.createElement('div');
+  musicStaff.className = 'musicStaff-treble';
+  main.prepend(musicStaff);
 }
 
 function getSelect() {
   let selectClef = `  
-  <select>
-    <option data-name=${'treble'}>Скрипичный ключ</option>
-    <option>Басовый ключ</option>
-  </select data-name=${'bass'}>`;
+  <select data-name='staff'>
+    <option value=${'treble'}>Скрипичный ключ</option>
+    <option value=${'bass'}>Басовый ключ</option>
+  </select>`;
   let tools = new Tools(selectClef);
-  tools.addHTML();
+  tools.addSelect();
 }
+
+function selectStaff() {
+  document.addEventListener('change', function (e) {
+    if(e.target.dataset.name === 'staff') {
+      let staffName = e.target.value;
+      let tools = new Tools(staffName);
+      tools.changeMusicStaff();
+    }
+  });
+}
+
 
 function init() {
   getKeys();
   pushKeys();
   getSelect();
+  selectStaff();
+  createMusicStaff();
 }
 
 init();
