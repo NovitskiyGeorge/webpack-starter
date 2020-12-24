@@ -97,7 +97,6 @@ function getKeys() {
   let keyboard = new Keyboard(keys);  
   keyboard.createKeyboard();
 }
-
 class Tools {
   constructor(selectClef) {
     this.selectClef = selectClef;
