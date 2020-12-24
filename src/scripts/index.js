@@ -46,52 +46,52 @@ function getKeys() {
     {
       id: 3,
       color: 'white',
-      url: 'src/audio/fa.wav',
+      url: 'src/audio/re.wav',
     },
     {
       id: 4,
       color: 'black',
-      url: 'src/audio/faDies.wav',
+      url: 'src/audio/reDies.wav',
     },
     {
       id: 5,
       color: 'white',
-      url: 'src/audio/lya.wav',
+      url: 'src/audio/mi.wav',
     },
     {
       id: 6,
       color: 'white',
-      url: 'src/audio/lyaDies.wav',
+      url: 'src/audio/fa.wav',
     },
     {
       id: 7,
       color: 'black',
-      url: 'src/audio/mi.wav',
+      url: 'src/audio/faDies.wav',
     },
     {
       id: 8,
       color: 'white',
-      url: 'src/audio/re.wav',
+      url: 'src/audio/sol.wav',
     },
     {
       id: 9,
       color: 'black',
-      url: 'src/audio/reDies.wav',
+      url: 'src/audio/solDies.wav',
     },
     {
       id: 10,
       color: 'white',
-      url: 'src/audio/si.wav',
+      url: 'src/audio/lya.wav',
     },
     {
       id: 11,
       color: 'black',
-      url: 'src/audio/sol.wav',
+      url: 'src/audio/lyaDies.wav',
     },
     {
       id: 12,
       color: 'white',
-      url: 'src/audio/solDies.wav',
+      url: 'src/audio/si.wav',
     },
   ];
   let keyboard = new Keyboard(keys);  
@@ -103,17 +103,18 @@ class Tools {
   }
   addHTML() {
     let main = document.querySelector('.main');
-    let instruments = document.createElement('tools');
+    let instruments = document.createElement('div');
+    instruments.className = 'tools';
     instruments.innerHTML = this.selectClef;
     main.appendChild(instruments);
   }
 }
 
 function getSelect() {
-  let selectClef = `
+  let selectClef = `  
   <select>
-    <option data-name=${'treble'}>Пункт 1</option>
-    <option>Пункт 2</option>
+    <option data-name=${'treble'}>Скрипичный ключ</option>
+    <option>Басовый ключ</option>
   </select data-name=${'bass'}>`;
   let tools = new Tools(selectClef);
   tools.addHTML();

@@ -8,9 +8,24 @@ body {
 .main {
   display: flex;
   justify-content: center;
+  flex-direction: column;
   align-items: center;
   min-height: 1000px;
-  background-color: rgb(211, 211, 211);
+  background-image: url('../image/fone.png');
+}
+
+.tools {
+  position: absolute;
+  top: 600px;
+  right: 500px;
+}
+
+.musicStaff {
+  background-image: url('../image/2.png');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  width: 600px;
+  height: 400px;
 }
 
 .piano {
@@ -78,8 +93,4 @@ body {
   &-push {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   }
-}
-
-.tools {
-  margin-left: 50px;
 }
