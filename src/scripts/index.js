@@ -6,15 +6,22 @@ if (process.env.NODE_ENV === 'development') {
 
 // console.log('webpack starterkit');
 
-class Keyboard {
-  constructor(keys) {
-    this.keys = keys;
+class Piano {
+  constructor(components) {
+    this.components = components;
+    this.piano = document.querySelector('.piano');
+    this.keyboard = document.createElement('div');
+    this.instrument = document.createElement('div');
+    this.app = document.querySelector('.app');
+  }
+  createPiano() {
+    this.instrument.className = 'piano';
+    this.instrument.innerHTML = this.components;
+    this.app.append(this.instrument);
   }
   createKeyboard() {
-    let piano = document.querySelector('.piano');
-    let keyboard = document.createElement('div');
-    keyboard.className = 'keyboard';
-    let html = this.keys.map(key => {
+    this.keyboard.className = 'keyboard';
+    let html = this.components.map(key => {
       let cls = 'key';
       switch(key.color) {
         case 'white': 
@@ -26,29 +33,51 @@ class Keyboard {
       return `<div class="${cls}" data-id=${key.id} data-url=${key.url}></div>`;
     });
     let htmlString = html.join('');
-    keyboard.innerHTML = htmlString;
-    piano.appendChild(keyboard);
+    this.keyboard.innerHTML = htmlString;
+    this.piano.appendChild(this.keyboard);
   }
 }
 
-function getKeys(keys) {  
+function addBodyPiano() {
+  let bodyPiano = `
+  <div class="piano__panel"></div>
+  <div class="piano__redLine"></div>
+  `;
+  let piano = new Piano(bodyPiano);
+  piano.createPiano();
+}
+
+function getKeys() {
+  let keysPromise = fetch('http://localhost:3000/keys').then(res => {
+    return res.json();
+  });
+  keysPromise.then (
+    res => {
+      createKeys(res);
+    },
+    err => {
+      console.log('Error');
+    }
+  );
+}
+
+function createKeys(keys) {  
   console.log(keys);
-  let keyboard = new Keyboard(keys);  
+  let keyboard = new Piano(keys);  
   keyboard.createKeyboard();
 }
 class Tools {
   constructor(nameTools) {
     this.nameTools = nameTools;
+    this.app = document.querySelector('.app');
+    this.tools = document.createElement('div');
   }
   addSelect() {
-    let main = document.querySelector('.main');
-    let instruments = document.createElement('div');
-    instruments.className = 'tools';
-    instruments.innerHTML = this.nameTools;
-    main.prepend(instruments);
+    this.tools.className = 'tools';
+    this.tools.innerHTML = this.nameTools;
+    this.app.prepend(this.tools);
   }
   changeMusicStaff() {
-    debugger;
     let nameClassStaff = 'treble';
     let musicStaff = document.querySelector(`.musicStaff-${nameClassStaff}`);    
     if(this.nameTools === 'bass') {
@@ -56,14 +85,13 @@ class Tools {
     }
     musicStaff.className = `musicStaff-${this.nameTools}`;
   }
-
 }
 
 function createMusicStaff() {
-  let main = document.querySelector('.main');    
+  let app = document.querySelector('.app');    
   let musicStaff = document.createElement('div');
   musicStaff.className = 'musicStaff-treble';
-  main.prepend(musicStaff);
+  app.prepend(musicStaff);
 }
 
 function getSelect() {
@@ -85,16 +113,6 @@ function selectStaff() {
     }
   });
 }
-
-
-function init() {
-  pushKeys();
-  getSelect();
-  selectStaff();
-  createMusicStaff();
-}
-
-init();
 
 function removeClassPush(key) {
   key.classList.remove('key-push');
@@ -118,28 +136,28 @@ function pushKeys() {
   });
 }
 
-let users = [];
-let keys = [];
-
-let usersPromise = fetch('http://localhost:3000/users').then(res => {
-  return res.json();
+function getUsers() {
+  let usersPromise = fetch('http://localhost:3000/users').then(res => {
+	return res.json();
 });
+usersPromise.then (
+	res => {
+		console.log(res);
+	},
+	err => {
+    console.log('Error');
+	}
+);
+}
 
-// usersPromise.then(
-//   res => {
-//     let keys = res;
-//     getKeys(keys);
-//     console.log(keys);
-//   },
-//   err => {
-//     debugger;
-//   }
-// );
+function init() {
+  addBodyPiano();
+  getKeys();
+  pushKeys();
+  getUsers();
+  getSelect();
+  selectStaff();
+  createMusicStaff();
+}
 
-let keysPromise = fetch('http://localhost:3000/keys').then(res => {
-  return res.json();
-});
-
-Promise.all([keysPromise, usersPromise]).then(date =>{
-  console.log(date);  
-});
+init();
