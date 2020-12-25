@@ -62,7 +62,6 @@ function getKeys() {
 }
 
 function createKeys(keys) {  
-  console.log(keys);
   let keyboard = new Piano(keys);  
   keyboard.createKeyboard();
 }
@@ -71,6 +70,10 @@ class Tools {
     this.nameTools = nameTools;
     this.app = document.querySelector('.app');
     this.tools = document.createElement('div');
+    this.musicStaff = document.querySelector('#staff');
+    this.note = document.createElement('div');
+    this.currentNote = document.querySelector('.musicStaff__note');
+
   }
   addSelect() {
     this.tools.className = 'tools';
@@ -78,18 +81,51 @@ class Tools {
     this.app.prepend(this.tools);
   }
   changeMusicStaff() {
-    let nameClassStaff = 'treble';
-    let musicStaff = document.querySelector(`.musicStaff-${nameClassStaff}`);    
-    if(this.nameTools === 'bass') {
-      nameClassStaff = 'bass';
+    switch(this.nameTools) {
+      case 'bass':
+        this.musicStaff.className = `musicStaff-${this.nameTools}`;
+        break;
+      case 'treble':
+        this.musicStaff.className = `musicStaff-${this.nameTools}`;
+        break;
     }
-    musicStaff.className = `musicStaff-${this.nameTools}`;
+  }
+  addNote() {
+    this.note.className = 'musicStaff__note';
+    this.musicStaff.appendChild(this.note);
+  }
+  changeNote() {
+  console.log(this.nameTools);
+    switch(this.nameTools) {
+      case 'do' :
+        this.currentNote.style.marginTop = '100px';
+        break;
+      case 're' :
+        this.currentNote.style.marginTop = '80px';
+        break;
+      case 'mi' :
+        this.currentNote.style.marginTop = '60px';
+        break; 
+      case 'fa' :
+        this.currentNote.style.marginTop = '40px';
+        break;
+      case 'sol' :
+        this.currentNote.style.marginTop = '20px';
+        break;  
+      case 'lya' :
+        this.currentNote.style.marginTop = '0px';
+        break;
+      case 'si' :
+        this.currentNote.style.marginTop = '-10px';
+        break;
+    }
   }
 }
 
 function createMusicStaff() {
   let app = document.querySelector('.app');    
   let musicStaff = document.createElement('div');
+  musicStaff.id = 'staff';
   musicStaff.className = 'musicStaff-treble';
   app.prepend(musicStaff);
 }
@@ -136,13 +172,39 @@ function pushKeys() {
   });
 }
 
+function createNote() {
+  let note = getRandomNote();
+  let tools = new Tools(note);
+  tools.addNote();
+}
+
+function addRandomNote() {
+  let note = getRandomNote();
+  let tools = new Tools(note);
+  tools.changeNote();
+}
+
+function timerAddNote() {
+  setInterval(() => addRandomNote(), 2000);
+}
+
+function getRandomNote() {
+  let notes = ['do', 're', 'mi', 'fa', 'sol', 'lya', 'si'];
+  let key = getRandomInt(0, notes.length-1);
+  return notes[key];
+}
+
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 function getUsers() {
   let usersPromise = fetch('http://localhost:3000/users').then(res => {
 	return res.json();
 });
 usersPromise.then (
 	res => {
-		console.log(res);
+		// console.log(res);
 	},
 	err => {
     console.log('Error');
@@ -158,6 +220,8 @@ function init() {
   getSelect();
   selectStaff();
   createMusicStaff();
+  createNote();
+  timerAddNote();
 }
 
 init();
