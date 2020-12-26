@@ -30,7 +30,7 @@ class Piano {
         case 'black': 
           cls+= ' key__black';
       }
-      return `<div class="${cls}" data-id=${key.id} data-url=${key.url}></div>`;
+      return `<div class="${cls}" data-id=${key.id} data-url=${key.url} data-name=${key.name}></div>`;
     });
     let htmlString = html.join('');
     this.keyboard.innerHTML = htmlString;
@@ -97,39 +97,51 @@ class Tools {
   changeNote() {
     switch(this.nameTools) {
       case 'do' :
+        this.currentNote.id = this.nameTools;
         this.currentNote.style.marginTop = '160px';
         break;
       case 'doDies' :
+        this.currentNote.id = this.nameTools;
         this.currentNote.style.marginTop = '120px';
         break;
       case 're' :
+        this.currentNote.id = this.nameTools;
         this.currentNote.style.marginTop = '100px';
         break; 
       case 'reDies' :
+        this.currentNote.id = this.nameTools;
         this.currentNote.style.marginTop = '80px';
         break;
       case 'mi' :
+        this.currentNote.id = this.nameTools;
         this.currentNote.style.marginTop = '60px';
         break;  
       case 'fa' :
+        this.currentNote.id = this.nameTools;
         this.currentNote.style.marginTop = '40px';
         break;
       case 'faDies' :
+        this.currentNote.id = this.nameTools;
         this.currentNote.style.marginTop = '20px';
         break;
       case 'sol' :
+        this.currentNote.id = this.nameTools;
         this.currentNote.style.marginTop = '0px';
         break;
       case 'solDies' :
+        this.currentNote.id = this.nameTools;
         this.currentNote.style.marginTop = '-20px';
         break;
       case 'lya' :
+        this.currentNote.id = this.nameTools;
         this.currentNote.style.marginTop = '-40px';
         break;
       case 'lyaDies' :
+        this.currentNote.id = this.nameTools;
         this.currentNote.style.marginTop = '-60px';
         break;
       case 'si' :
+        this.currentNote.id = this.nameTools;
         this.currentNote.style.marginTop = '-80px';
         break;
     }
@@ -174,8 +186,6 @@ function removeClassPush(key) {
 
 function soundClick(keyUrl) {
   let audio = new Audio();
-  console.log(keyUrl);
-
   audio.src = keyUrl;
   audio.autoplay = true;
 }
@@ -185,6 +195,8 @@ function pushKeys() {
     if(e.target.className === 'key key__white' || e.target.className === 'key key__black') {
       let key = e.target;
       let keyUrl = e.target.dataset.url;
+      let noteName = e.target.dataset.name;
+      checkWin(noteName);
       soundClick(keyUrl);
       key.classList.add('key-push');
       setTimeout(removeClassPush, 300, key);
@@ -205,7 +217,7 @@ function addRandomNote() {
 }
 
 function timerAddNote() {
-  setInterval(() => addRandomNote(), 2000);
+  setInterval(() => addRandomNote(), 5000);
 }
 
 function getRandomNote() {
@@ -219,8 +231,13 @@ function getRandomInt(min, max) {
 }
 
 
-function checkWin() {
-
+function checkWin(keyNote) {
+  let currentNote = document.querySelector('.musicClef__note');
+  if (keyNote === currentNote.id) {
+    console.log('win!');
+  } else {
+    console.log('loose!');
+    }
 }
 
 function getUsers() {
