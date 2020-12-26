@@ -95,28 +95,42 @@ class Tools {
     this.musicStaff.appendChild(this.note);
   }
   changeNote() {
-  console.log(this.nameTools);
     switch(this.nameTools) {
       case 'do' :
-        this.currentNote.style.marginTop = '100px';
+        this.currentNote.style.marginTop = '160px';
+        break;
+      case 'doDies' :
+        this.currentNote.style.marginTop = '120px';
         break;
       case 're' :
+        this.currentNote.style.marginTop = '100px';
+        break; 
+      case 'reDies' :
         this.currentNote.style.marginTop = '80px';
         break;
       case 'mi' :
         this.currentNote.style.marginTop = '60px';
-        break; 
+        break;  
       case 'fa' :
         this.currentNote.style.marginTop = '40px';
         break;
-      case 'sol' :
+      case 'faDies' :
         this.currentNote.style.marginTop = '20px';
-        break;  
-      case 'lya' :
+        break;
+      case 'sol' :
         this.currentNote.style.marginTop = '0px';
         break;
+      case 'solDies' :
+        this.currentNote.style.marginTop = '-20px';
+        break;
+      case 'lya' :
+        this.currentNote.style.marginTop = '-40px';
+        break;
+      case 'lyaDies' :
+        this.currentNote.style.marginTop = '-60px';
+        break;
       case 'si' :
-        this.currentNote.style.marginTop = '-10px';
+        this.currentNote.style.marginTop = '-80px';
         break;
     }
   }
@@ -156,6 +170,8 @@ function removeClassPush(key) {
 
 function soundClick(keyUrl) {
   let audio = new Audio();
+  console.log(keyUrl);
+
   audio.src = keyUrl;
   audio.autoplay = true;
 }
@@ -189,13 +205,18 @@ function timerAddNote() {
 }
 
 function getRandomNote() {
-  let notes = ['do', 're', 'mi', 'fa', 'sol', 'lya', 'si'];
+  let notes = ['do', 'doDies', 're', 'reDies', 'mi', 'fa', 'faDies', 'sol', 'solDies', 'lya', 'lyaDies', 'si'];
   let key = getRandomInt(0, notes.length-1);
   return notes[key];
 }
 
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+
+function checkWin() {
+
 }
 
 function getUsers() {

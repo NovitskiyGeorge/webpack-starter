@@ -15,61 +15,73 @@ var userId = 0;
 let keys = [
   {
     id: 1,
+    name: 'C',
     color: 'white',
     url: 'src/audio/do.wav',
   },
   {
     id: 2,
+    name: 'C#',
     color: 'black',
     url: 'src/audio/doDies.wav',
   },
   {
     id: 3,
+    name: 'D',
     color: 'white',
     url: 'src/audio/re.wav',
   },
   {
     id: 4,
+    name: 'D#',
     color: 'black',
     url: 'src/audio/reDies.wav',
   },
   {
     id: 5,
+    name: 'E',
     color: 'white',
     url: 'src/audio/mi.wav',
   },
   {
     id: 6,
+    name: 'F',
     color: 'white',
     url: 'src/audio/fa.wav',
   },
   {
     id: 7,
+    name: 'F#',
     color: 'black',
     url: 'src/audio/faDies.wav',
   },
   {
     id: 8,
+    name: 'G',
     color: 'white',
     url: 'src/audio/sol.wav',
   },
   {
     id: 9,
+    name: 'G#',
     color: 'black',
     url: 'src/audio/solDies.wav',
   },
   {
     id: 10,
+    name: 'A',
     color: 'white',
     url: 'src/audio/lya.wav',
   },
   {
     id: 11,
+    name: 'A#',
     color: 'black',
     url: 'src/audio/lyaDies.wav',
   },
   {
     id: 12,
+    name: 'B',
     color: 'white',
     url: 'src/audio/si.wav',
   },

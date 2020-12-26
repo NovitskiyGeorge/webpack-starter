@@ -22,6 +22,12 @@ npm start
 npm run build
 ```
 
+### Start server API
+
+```
+npm run api
+```
+
 ### Features:
 
 - ES6 Support via [babel](https://babeljs.io/) (v7)
