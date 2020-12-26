@@ -70,9 +70,9 @@ class Tools {
     this.nameTools = nameTools;
     this.app = document.querySelector('.app');
     this.tools = document.createElement('div');
-    this.musicStaff = document.querySelector('#staff');
+    this.musicClef = document.querySelector('#clef');
     this.note = document.createElement('div');
-    this.currentNote = document.querySelector('.musicStaff__note');
+    this.currentNote = document.querySelector('.musicClef__note');
 
   }
   addSelect() {
@@ -80,19 +80,19 @@ class Tools {
     this.tools.innerHTML = this.nameTools;
     this.app.prepend(this.tools);
   }
-  changeMusicStaff() {
+  changeMusicClef() {
     switch(this.nameTools) {
       case 'bass':
-        this.musicStaff.className = `musicStaff-${this.nameTools}`;
+        this.musicClef.className = `musicClef-${this.nameTools}`;
         break;
       case 'treble':
-        this.musicStaff.className = `musicStaff-${this.nameTools}`;
+        this.musicClef.className = `musicClef-${this.nameTools}`;
         break;
     }
   }
   addNote() {
-    this.note.className = 'musicStaff__note';
-    this.musicStaff.appendChild(this.note);
+    this.note.className = 'musicClef__note';
+    this.musicClef.appendChild(this.note);
   }
   changeNote() {
     switch(this.nameTools) {
@@ -136,17 +136,21 @@ class Tools {
   }
 }
 
-function createMusicStaff() {
+function createMusicStan() {
+
+}
+
+function createMusicClef() {
   let app = document.querySelector('.app');    
-  let musicStaff = document.createElement('div');
-  musicStaff.id = 'staff';
-  musicStaff.className = 'musicStaff-treble';
-  app.prepend(musicStaff);
+  let musicClef = document.createElement('div');
+  musicClef.id = 'clef';
+  musicClef.className = 'musicClef-treble';
+  app.prepend(musicClef);
 }
 
 function getSelect() {
   let selectClef = `  
-  <select data-name='staff'>
+  <select data-name='clef'>
     <option value=${'treble'}>Скрипичный ключ</option>
     <option value=${'bass'}>Басовый ключ</option>
   </select>`;
@@ -154,12 +158,12 @@ function getSelect() {
   tools.addSelect();
 }
 
-function selectStaff() {
+function selectClef() {
   document.addEventListener('change', function (e) {
-    if(e.target.dataset.name === 'staff') {
-      let staffName = e.target.value;
-      let tools = new Tools(staffName);
-      tools.changeMusicStaff();
+    if(e.target.dataset.name === 'clef') {
+      let clefName = e.target.value;
+      let tools = new Tools(clefName);
+      tools.changeMusicClef();
     }
   });
 }
@@ -239,8 +243,8 @@ function init() {
   pushKeys();
   getUsers();
   getSelect();
-  selectStaff();
-  createMusicStaff();
+  selectClef();
+  createMusicClef();
   createNote();
   timerAddNote();
 }
