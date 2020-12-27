@@ -234,10 +234,18 @@ function getRandomInt(min, max) {
 function checkWin(keyNote) {
   let currentNote = document.querySelector('.musicClef__note');
   if (keyNote === currentNote.id) {
+    inform('win!');
     console.log('win!');
   } else {
+    inform('loose!');
     console.log('loose!');
     }
+}
+
+function inform(mess) {
+  let pianoPanel = document.querySelector('.piano__panel');
+  pianoPanel.innerText = mess;
+  setTimeout(pianoPanel.innerText = ' sa', 1000);
 }
 
 function getUsers() {
