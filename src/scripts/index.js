@@ -98,51 +98,39 @@ class Tools {
     switch(this.nameTools) {
       case 'do' :
         this.currentNote.id = this.nameTools;
-        this.currentNote.style.marginTop = '100px';
         break;
       case 'doDies' :
         this.currentNote.id = this.nameTools;
-        this.currentNote.style.marginTop = '120px';
         break;
       case 're' :
         this.currentNote.id = this.nameTools;
-        this.currentNote.style.marginTop = '100px';
         break; 
       case 'reDies' :
         this.currentNote.id = this.nameTools;
-        this.currentNote.style.marginTop = '80px';
         break;
       case 'mi' :
         this.currentNote.id = this.nameTools;
-        this.currentNote.style.marginTop = '60px';
         break;  
       case 'fa' :
         this.currentNote.id = this.nameTools;
-        this.currentNote.style.marginTop = '40px';
         break;
       case 'faDies' :
         this.currentNote.id = this.nameTools;
-        this.currentNote.style.marginTop = '20px';
         break;
       case 'sol' :
         this.currentNote.id = this.nameTools;
-        this.currentNote.style.marginTop = '0px';
         break;
       case 'solDies' :
         this.currentNote.id = this.nameTools;
-        this.currentNote.style.marginTop = '-20px';
         break;
       case 'lya' :
         this.currentNote.id = this.nameTools;
-        this.currentNote.style.marginTop = '-40px';
         break;
       case 'lyaDies' :
         this.currentNote.id = this.nameTools;
-        this.currentNote.style.marginTop = '-60px';
         break;
       case 'si' :
         this.currentNote.id = this.nameTools;
-        this.currentNote.style.marginTop = '-80px';
         break;
     }
   }
@@ -171,7 +159,8 @@ function createSelect() {
   <select data-name='clef'>
     <option value=${'treble'}>Скрипичный ключ</option>
     <option value=${'bass'}>Басовый ключ</option>
-  </select>`;
+  </select>
+  <button class="start"></button>`;
   let tools = new Tools(selectClef);
   tools.addSelect();
 }
@@ -238,21 +227,29 @@ function getRandomInt(min, max) {
 
 
 function checkWin(keyNote) {
-  let currentNote = document.querySelector('.musicClef__note');
+  let currentNote = document.querySelector('.stan__note');
+  let inf;
   if (keyNote === currentNote.id) {
-    inform('win!');
+    inf = 'win!';
+    inform(inf);
     console.log('win!');
   } else {
-    inform('loose!');
+    inf = 'loose!';
+    inform(inf);
     console.log('loose!');
     }
 }
 
 function inform(mess) {
-  let pianoPanel = document.querySelector('.piano__panel');
-  pianoPanel.innerText = mess;
-  setTimeout(pianoPanel.innerText = ' sa', 1000);
+  let infPanel = document.querySelector('.piano__panel');
+  infPanel.innerText = mess;
+  setTimeout(clearInfPanel, 1000, infPanel);
 }
+
+function clearInfPanel(infPanel) {
+  infPanel.innerText = '';
+}
+
 
 function getUsers() {
   let usersPromise = fetch('http://localhost:3000/users').then(res => {
@@ -276,7 +273,7 @@ function init() {
   pushKeys();
   getUsers();
   selectClef();
-  // timerAddNote();
+  timerAddNote();
 }
 
 init();

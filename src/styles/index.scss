@@ -15,14 +15,14 @@ body {
 }
 
 .stan {
-  width: 900px;
-  height: 400px;
+  min-width: 700px;
+  min-height: 400px;
   background-image: url('../image/stan.png');
 
   &__clef {
     &-treble {
-      width: 100px;
-      height: 180px;
+      width: 200px;
+      height: 350px;
       background-image: url('../image/treble.png');
       background-repeat: no-repeat;
       background-size: 100%;
@@ -39,13 +39,162 @@ body {
   }
 
   &__note {
+    display: none;
     background-image: url('../image/noteUp.png');
     background-repeat: no-repeat;
     background-size: 100%;
-    min-width: 200px;
+    min-width: 250px;
     min-height: 250px;
     position: absolute;
-    margin-left: 350px;
+    margin-left: 450px;
+
+    &#do {
+      display: block;
+      background-image: url('../image/noteDown.png');
+      background-repeat: no-repeat;
+      background-size: 100%;
+      min-width: 250px;
+      min-height: 250px;
+      position: absolute;
+      margin-left: 450px;
+      margin-top: 100px;
+    }
+
+    &#doDies {
+      display: block;
+      background-image: url('../image/noteDown.png');
+      background-repeat: no-repeat;
+      background-size: 100%;
+      min-width: 250px;
+      min-height: 250px;
+      position: absolute;
+      margin-left: 450px;
+      margin-top: 90px;
+    }
+
+    &#re {
+      display: block;
+      background-image: url('../image/noteDown.png');
+      background-repeat: no-repeat;
+      background-size: 100%;
+      min-width: 250px;
+      min-height: 250px;
+      position: absolute;
+      margin-left: 450px;
+      margin-top: 80px;
+    }
+
+    &#reDies {
+      display: block;
+      background-image: url('../image/noteDown.png');
+      background-repeat: no-repeat;
+      background-size: 100%;
+      min-width: 250px;
+      min-height: 250px;
+      position: absolute;
+      margin-left: 450px;
+      margin-top: 70px;
+    }
+
+    &#mi {
+      display: block;
+      background-image: url('../image/noteDown.png');
+      background-repeat: no-repeat;
+      background-size: 100%;
+      min-width: 250px;
+      min-height: 250px;
+      position: absolute;
+      margin-left: 450px;
+      margin-top: 60px;
+    }
+
+    &#fa {
+      display: block;
+      background-image: url('../image/noteDown.png');
+      background-repeat: no-repeat;
+      background-size: 100%;
+      min-width: 250px;
+      min-height: 250px;
+      position: absolute;
+      margin-left: 450px;
+      margin-top: 50px;
+    }
+
+    &#faDies {
+      display: block;
+      background-image: url('../image/noteDown.png');
+      background-repeat: no-repeat;
+      background-size: 100%;
+      min-width: 250px;
+      min-height: 250px;
+      position: absolute;
+      margin-left: 450px;
+      margin-top: 40px;
+    }
+
+    &#sol {
+      display: block;
+      background-image: url('../image/noteDown.png');
+      background-repeat: no-repeat;
+      background-size: 100%;
+      min-width: 250px;
+      min-height: 250px;
+      position: absolute;
+      margin-left: 450px;
+      margin-top: 30px;
+    }
+
+    &#solDies {
+      display: block;
+      background-image: url('../image/noteDown.png');
+      background-repeat: no-repeat;
+      background-size: 100%;
+      min-width: 250px;
+      min-height: 250px;
+      position: absolute;
+      margin-left: 450px;
+      margin-top: 20px;
+    }
+
+    &#lya {
+      display: block;
+      background-image: url('../image/noteDown.png');
+      background-repeat: no-repeat;
+      background-size: 100%;
+      min-width: 250px;
+      min-height: 250px;
+      position: absolute;
+      margin-left: 450px;
+      margin-top: 10px;
+    }
+
+    &#lyaDies {
+      display: block;
+      background-image: url('../image/noteDown.png');
+      background-repeat: no-repeat;
+      background-size: 100%;
+      min-width: 250px;
+      min-height: 250px;
+      position: absolute;
+      margin-left: 450px;
+      margin-top: 0;
+    }
+
+    &#si {
+      display: block;
+      background-image: url('../image/noteDown.png');
+      background-repeat: no-repeat;
+      background-size: 100%;
+      min-width: 250px;
+      min-height: 250px;
+      position: absolute;
+      margin-left: 450px;
+      margin-top: -10px;
+    }
+
+    &-active {
+      display: block;
+    }
   }
 }
 
