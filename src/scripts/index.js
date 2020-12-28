@@ -148,12 +148,12 @@ function createSelect() {
     <option value=${'treble'}>Скрипичный ключ</option>
     <option value=${'bass'}>Басовый ключ</option>
   </select>
-  <input type="checkbox" id="oktavaOne"> 1-я октава
-  <input type="checkbox" id="oktavaTwo"> 2-я октава
-  <input type="checkbox" id="oktavaThree"> 3-я октава
-  <input type="checkbox" id="oktavaFour"> 4-я октава
-  <input type="checkbox" id="oktavaSmall"> малая октава
-  <input type="checkbox" id="oktavaBig"> большая октава
+  <input type="checkbox" class="checkboxOctava" value="oktavaOne"> 1-я октава
+  <input type="checkbox" class="checkboxOctava" value="oktavaTwo"> 2-я октава
+  <input type="checkbox" class="checkboxOctava" value="oktavaThree"> 3-я октава
+  <input type="checkbox" class="checkboxOctava" value="oktavaFour"> 4-я октава
+  <input type="checkbox" class="checkboxOctava" value="oktavaSmall"> малая октава
+  <input type="checkbox" class="checkboxOctava" value="oktavaBig"> большая октава
   <button class="start">Start</button>
   `;
   let tools = new Tools(selectClef);
@@ -211,13 +211,27 @@ function timerAddNote() {
   setInterval(() => addRandomNote(), 5000);
 }
 
+function pickOctava() {
+  let pickCheckboxes = document.querySelectorAll('.checkboxOctava');
+  let pickBoxOctava = '';
+  pickCheckboxes.forEach(box => {
+    if(box.checked) {
+      pickBoxOctava += box.value;
+    }
+  });
+  return pickBoxOctava;
+}
 function getRandomNote() {
   let select = document.querySelector('select');
-  console.log(select.value);
+  let selectOctava = pickOctava();
+  
+  console.log(selectOctava);
   let notes = [];
 
   if(select.value === 'treble'){
-    // switch
+    if(selectOctava.includes('octavaOne')) {
+      console.log('done!');
+    }
   }
   
   let key = getRandomInt(0, notes.length-1);
