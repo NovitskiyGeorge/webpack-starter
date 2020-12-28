@@ -90,10 +90,6 @@ class Tools {
         break;
     }
   }
-  // addNote() {
-  //   this.note.className = 'stan__note';
-  //   this.stan.appendChild(this.note);
-  // }
   changeNote() {
     switch(this.nameTools) {
       case 'do' :
@@ -141,18 +137,10 @@ function createMusicStan() {
   let musicStan = document.createElement('div');
   musicStan.className = 'stan';
   musicStan.innerHTML = `
-  <div class="stan__clef" id="clef"></div>
+  <div class="stan__clef-treble" id="clef"></div>
   <div class="stan__note"></div>`;
   app.prepend(musicStan);
 }
-
-// function createMusicClef() {
-//   let app = document.querySelector('.app');    
-//   let musicClef = document.createElement('div');
-//   musicClef.id = 'clef';
-//   musicClef.className = 'musicClef-treble';
-//   app.prepend(musicClef);
-// }
 
 function createSelect() {
   let selectClef = `  
@@ -160,9 +148,23 @@ function createSelect() {
     <option value=${'treble'}>Скрипичный ключ</option>
     <option value=${'bass'}>Басовый ключ</option>
   </select>
-  <button class="start"></button>`;
+  <input type="checkbox" id="oktavaOne"> 1-я октава
+  <input type="checkbox" id="oktavaTwo"> 2-я октава
+  <input type="checkbox" id="oktavaThree"> 3-я октава
+  <input type="checkbox" id="oktavaFour"> 4-я октава
+  <input type="checkbox" id="oktavaSmall"> малая октава
+  <input type="checkbox" id="oktavaBig"> большая октава
+  <button class="start">Start</button>
+  `;
   let tools = new Tools(selectClef);
   tools.addSelect();
+}
+
+function start() {
+  let startBtn = document.querySelector('.start');
+  startBtn.addEventListener('click', function() {
+    timerAddNote();
+  });
 }
 
 function selectClef() {
@@ -199,12 +201,6 @@ function pushKeys() {
   });
 }
 
-// function createNote() {
-//   let note = getRandomNote();
-//   let tools = new Tools(note);
-//   tools.addNote();
-// }
-
 function addRandomNote() {
   let note = getRandomNote();
   let tools = new Tools(note);
@@ -216,7 +212,14 @@ function timerAddNote() {
 }
 
 function getRandomNote() {
-  let notes = ['do', 'doDies', 're', 'reDies', 'mi', 'fa', 'faDies', 'sol', 'solDies', 'lya', 'lyaDies', 'si'];
+  let select = document.querySelector('select');
+  console.log(select.value);
+  let notes = [];
+
+  if(select.value === 'treble'){
+    // switch
+  }
+  
   let key = getRandomInt(0, notes.length-1);
   return notes[key];
 }
@@ -272,8 +275,8 @@ function init() {
   createMusicStan();
   pushKeys();
   getUsers();
-  selectClef();
-  timerAddNote();
+  selectClef();  
+  start();
 }
 
 init();
