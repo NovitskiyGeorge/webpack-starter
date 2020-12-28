@@ -69,10 +69,10 @@ class Tools {
   constructor(nameTools) {
     this.nameTools = nameTools;
     this.app = document.querySelector('.app');
+    this.stan = document.querySelector('.stan');
     this.tools = document.createElement('div');
     this.musicClef = document.querySelector('#clef');
-    this.note = document.createElement('div');
-    this.currentNote = document.querySelector('.musicClef__note');
+    this.currentNote = document.querySelector('.stan__note');
 
   }
   addSelect() {
@@ -83,22 +83,22 @@ class Tools {
   changeMusicClef() {
     switch(this.nameTools) {
       case 'bass':
-        this.musicClef.className = `musicClef-${this.nameTools}`;
+        this.musicClef.className = `stan__clef-${this.nameTools}`;
         break;
       case 'treble':
-        this.musicClef.className = `musicClef-${this.nameTools}`;
+        this.musicClef.className = `stan__clef-${this.nameTools}`;
         break;
     }
   }
-  addNote() {
-    this.note.className = 'musicClef__note';
-    this.musicClef.appendChild(this.note);
-  }
+  // addNote() {
+  //   this.note.className = 'stan__note';
+  //   this.stan.appendChild(this.note);
+  // }
   changeNote() {
     switch(this.nameTools) {
       case 'do' :
         this.currentNote.id = this.nameTools;
-        this.currentNote.style.marginTop = '160px';
+        this.currentNote.style.marginTop = '100px';
         break;
       case 'doDies' :
         this.currentNote.id = this.nameTools;
@@ -149,18 +149,24 @@ class Tools {
 }
 
 function createMusicStan() {
-
+  let app = document.querySelector('.app');
+  let musicStan = document.createElement('div');
+  musicStan.className = 'stan';
+  musicStan.innerHTML = `
+  <div class="stan__clef" id="clef"></div>
+  <div class="stan__note"></div>`;
+  app.prepend(musicStan);
 }
 
-function createMusicClef() {
-  let app = document.querySelector('.app');    
-  let musicClef = document.createElement('div');
-  musicClef.id = 'clef';
-  musicClef.className = 'musicClef-treble';
-  app.prepend(musicClef);
-}
+// function createMusicClef() {
+//   let app = document.querySelector('.app');    
+//   let musicClef = document.createElement('div');
+//   musicClef.id = 'clef';
+//   musicClef.className = 'musicClef-treble';
+//   app.prepend(musicClef);
+// }
 
-function getSelect() {
+function createSelect() {
   let selectClef = `  
   <select data-name='clef'>
     <option value=${'treble'}>Скрипичный ключ</option>
@@ -204,11 +210,11 @@ function pushKeys() {
   });
 }
 
-function createNote() {
-  let note = getRandomNote();
-  let tools = new Tools(note);
-  tools.addNote();
-}
+// function createNote() {
+//   let note = getRandomNote();
+//   let tools = new Tools(note);
+//   tools.addNote();
+// }
 
 function addRandomNote() {
   let note = getRandomNote();
@@ -265,13 +271,12 @@ usersPromise.then (
 function init() {
   addBodyPiano();
   getKeys();
+  createSelect();
+  createMusicStan();
   pushKeys();
   getUsers();
-  getSelect();
   selectClef();
-  createMusicClef();
-  createNote();
-  timerAddNote();
+  // timerAddNote();
 }
 
 init();

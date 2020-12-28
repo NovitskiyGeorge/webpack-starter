@@ -14,36 +14,43 @@ body {
   background-image: url('../image/fone.png');
 }
 
-.tools {
-  margin-bottom: 100px;
-}
+.stan {
+  width: 900px;
+  height: 400px;
+  background-image: url('../image/stan.png');
 
-.musicClef {
+  &__clef {
+    &-treble {
+      width: 100px;
+      height: 180px;
+      background-image: url('../image/treble.png');
+      background-repeat: no-repeat;
+      background-size: 100%;
+    }
+
+    &-bass {
+      margin-top: 98px;
+      width: 340px;
+      height: 240px;
+      background-image: url('../image/bass.png');
+      background-repeat: no-repeat;
+      background-size: 100%;
+    }
+  }
+
   &__note {
-    background-image: url('../image/nota.png');
+    background-image: url('../image/noteUp.png');
     background-repeat: no-repeat;
     background-size: 100%;
-    min-width: 100px;
-    min-height: 150px;
+    min-width: 200px;
+    min-height: 250px;
     position: absolute;
     margin-left: 350px;
   }
+}
 
-  &-treble {
-    width: 600px;
-    height: 300px;
-    background-image: url('../image/2.png');
-    background-repeat: no-repeat;
-    background-size: 100%;
-  }
-
-  &-bass {
-    width: 600px;
-    height: 300px;
-    background-image: url('../image/3.png');
-    background-repeat: no-repeat;
-    background-size: 100%;
-  }
+.tools {
+  margin-bottom: 100px;
 }
 
 .piano {
