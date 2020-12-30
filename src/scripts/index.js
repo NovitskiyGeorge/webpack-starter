@@ -230,7 +230,7 @@ function getRandomNote() {
 
   if(select.value === 'treble'){
     if(selectOctava.includes('octavaOne')) {
-      console.log('done!');
+      console.log('done');
     }
   }
   
