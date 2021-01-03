@@ -92,40 +92,46 @@ class Tools {
   }
   changeNote() {
     switch(this.nameTools) {
-      case 'do' :
+      case 'do-one':
         this.currentNote.id = this.nameTools;
         break;
-      case 'doDies' :
+      case 're-one':
         this.currentNote.id = this.nameTools;
         break;
-      case 're' :
+      case 'mi-one':
         this.currentNote.id = this.nameTools;
         break; 
-      case 'reDies' :
+      case 'fa-one':
         this.currentNote.id = this.nameTools;
         break;
-      case 'mi' :
+      case 'sol-one':
         this.currentNote.id = this.nameTools;
         break;  
-      case 'fa' :
+      case 'lya-one':
         this.currentNote.id = this.nameTools;
         break;
-      case 'faDies' :
+      case 'si-one':
         this.currentNote.id = this.nameTools;
         break;
-      case 'sol' :
+      case 'do-two':
         this.currentNote.id = this.nameTools;
         break;
-      case 'solDies' :
+      case 're-two':
         this.currentNote.id = this.nameTools;
         break;
-      case 'lya' :
+      case 'mi-two':
+        this.currentNote.id = this.nameTools;
+        break; 
+      case 'fa-two':
         this.currentNote.id = this.nameTools;
         break;
-      case 'lyaDies' :
+      case 'sol-two':
+        this.currentNote.id = this.nameTools;
+        break;  
+      case 'lya-two':
         this.currentNote.id = this.nameTools;
         break;
-      case 'si' :
+      case 'si-two':
         this.currentNote.id = this.nameTools;
         break;
     }
@@ -148,12 +154,12 @@ function createSelect() {
     <option value=${'treble'}>Скрипичный ключ</option>
     <option value=${'bass'}>Басовый ключ</option>
   </select>
-  <input type="checkbox" class="checkboxOctava" value="oktavaOne"> 1-я октава
-  <input type="checkbox" class="checkboxOctava" value="oktavaTwo"> 2-я октава
-  <input type="checkbox" class="checkboxOctava" value="oktavaThree"> 3-я октава
-  <input type="checkbox" class="checkboxOctava" value="oktavaFour"> 4-я октава
-  <input type="checkbox" class="checkboxOctava" value="oktavaSmall"> малая октава
-  <input type="checkbox" class="checkboxOctava" value="oktavaBig"> большая октава
+  <input type="checkbox" class="checkboxOctave" value="octaveOne"> 1-я октава
+  <input type="checkbox" class="checkboxOctave" value="octaveTwo"> 2-я октава
+  <input type="checkbox" class="checkboxOctave" value="octaveThree"> 3-я октава
+  <input type="checkbox" class="checkboxOctave" value="octaveFour"> 4-я октава
+  <input type="checkbox" class="checkboxOctave" value="octaveSmall"> малая октава
+  <input type="checkbox" class="checkboxOctave" value="octaveBig"> большая октава
   <button class="start">Start</button>
   `;
   let tools = new Tools(selectClef);
@@ -208,34 +214,39 @@ function addRandomNote() {
 }
 
 function timerAddNote() {
-  setInterval(() => addRandomNote(), 5000);
+  setInterval(() => addRandomNote(), 3000);
 }
 
-function pickOctava() {
-  let pickCheckboxes = document.querySelectorAll('.checkboxOctava');
-  let pickBoxOctava = '';
+function pickNotes() {
+  let pickCheckboxes = document.querySelectorAll('.checkboxOctave');
+  let notes = [];
   pickCheckboxes.forEach(box => {
+
     if(box.checked) {
-      pickBoxOctava += box.value;
+      switch (box.value) {
+        case 'octaveOne': {
+          notes.push('do-one', 're-one', 'mi-one', 'fa-one', 'sol-one', 'lya-one', 'si-one');
+          break;
+        }
+        case 'octaveTwo': {
+          notes.push('do-two', 're-two', 'mi-two', 'fa-two', 'sol-two', 'lya-two', 'si-two');
+          break;
+        }
+      }
+      
     }
   });
-  return pickBoxOctava;
+  return notes;
 }
 function getRandomNote() {
   let select = document.querySelector('select');
-  let selectOctava = pickOctava();
-  
-  console.log(selectOctava);
-  let notes = [];
-
   if(select.value === 'treble'){
-    if(selectOctava.includes('octavaOne')) {
-      console.log('done');
-    }
+    let notes = pickNotes();
+    let key = getRandomInt(0, notes.length-1);
+    return notes[key];
   }
   
-  let key = getRandomInt(0, notes.length-1);
-  return notes[key];
+
 }
 
 function getRandomInt(min, max) {
