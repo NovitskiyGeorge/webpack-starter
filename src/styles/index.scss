@@ -52,135 +52,126 @@ body {
     &#do-one {
       background-image: url('../image/noteUp.png');
       margin-top: 100px;
+
+      &::before {
+        margin-left: 26px;
+        margin-top: 102px;
+        content: '';
+        width: 50px;
+        height: 4px;
+        background-color: #000;
+        position: absolute;
+      }
     }
 
     &#re-one {
       background-image: url('../image/noteUp.png');
-      margin-top: 95px;
+      margin-top: 78px;
     }
 
     &#mi-one {
       background-image: url('../image/noteUp.png');
-      margin-top: 90px;
+      margin-top: 65px;
     }
 
     &#fa-one {
       background-image: url('../image/noteUp.png');
-      margin-top: 85px;
+      margin-top: 49px;
     }
 
     &#sol-one {
       background-image: url('../image/noteUp.png');
-      margin-top: 80px;
+      margin-top: 33px;
     }
 
     &#lya-one {
       background-image: url('../image/noteUp.png');
-      margin-top: 75px;
+      margin-top: 18px;
     }
 
     &#si-one {
-      background-image: url('../image/noteUp.png');
-      margin-top: 70px;
-    }
-
-    &#do-two {
-      background-image: url('../image/noteUp.png');
-      margin-top: 100px;
-    }
-
-    &#re-two {
-      background-image: url('../image/noteUp.png');
-      margin-top: 95px;
-    }
-
-    &#mi-two {
-      background-image: url('../image/noteUp.png');
+      background-image: url('../image/noteDown.png');
       margin-top: 90px;
     }
 
-    &#fa-two {
-      background-image: url('../image/noteUp.png');
-      margin-top: 85px;
-    }
-
-    &#sol-two {
-      background-image: url('../image/noteUp.png');
-      margin-top: 80px;
-    }
-
-    &#lya-two {
-      background-image: url('../image/noteUp.png');
+    &#do-two {
+      background-image: url('../image/noteDown.png');
       margin-top: 75px;
     }
 
-    &#si-two {
-      background-image: url('../image/noteUp.png');
-      margin-top: 70px;
+    &#re-two {
+      background-image: url('../image/noteDown.png');
+      margin-top: 60px;
     }
 
-    &#sol {
-      display: block;
+    &#mi-two {
       background-image: url('../image/noteDown.png');
-      background-repeat: no-repeat;
-      background-size: 100%;
-      min-width: 250px;
-      min-height: 250px;
-      position: absolute;
-      margin-left: 450px;
+      margin-top: 45px;
+    }
+
+    &#fa-two {
+      background-image: url('../image/noteDown.png');
       margin-top: 30px;
     }
 
-    &#solDies {
-      display: block;
+    &#sol-two {
       background-image: url('../image/noteDown.png');
-      background-repeat: no-repeat;
-      background-size: 100%;
-      min-width: 250px;
-      min-height: 250px;
-      position: absolute;
-      margin-left: 450px;
-      margin-top: 20px;
+      margin-top: 15px;
     }
 
-    &#lya {
-      display: block;
+    &#lya-two {
       background-image: url('../image/noteDown.png');
-      background-repeat: no-repeat;
-      background-size: 100%;
-      min-width: 250px;
-      min-height: 250px;
-      position: absolute;
-      margin-left: 450px;
-      margin-top: 10px;
-    }
-
-    &#lyaDies {
-      display: block;
-      background-image: url('../image/noteDown.png');
-      background-repeat: no-repeat;
-      background-size: 100%;
-      min-width: 250px;
-      min-height: 250px;
-      position: absolute;
-      margin-left: 450px;
       margin-top: 0;
+
+      &::before {
+        margin-left: 43px;
+        margin-top: 15px;
+        content: '';
+        width: 50px;
+        height: 4px;
+        background-color: #000;
+        position: absolute;
+      }
     }
 
-    &#si {
-      display: block;
+    &#si-two {
       background-image: url('../image/noteDown.png');
-      background-repeat: no-repeat;
-      background-size: 100%;
-      min-width: 250px;
-      min-height: 250px;
-      position: absolute;
-      margin-left: 450px;
-      margin-top: -10px;
+      margin-top: -15px;
+
+      &::before {
+        margin-left: 42px;
+        margin-top: 30px;
+        content: '';
+        width: 50px;
+        height: 4px;
+        background-color: #000;
+        position: absolute;
+      }
     }
 
-    &-active {
-      display: block;
+    &#do-three {
+      background-image: url('../image/noteDown.png');
+      margin-top: -30px;
+
+      &::after {
+        margin-left: 42px;
+        margin-top: 45px;
+        content: '';
+        width: 50px;
+        height: 4px;
+        background-color: #000;
+        position: absolute;
+      }
+
+      &::before {
+        margin-left: 42px;
+        margin-top: 15px;
+        content: '';
+        width: 50px;
+        height: 4px;
+        background-color: #000;
+        position: absolute;
+      }
     }
   }
 }

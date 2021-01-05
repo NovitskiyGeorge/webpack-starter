@@ -4,7 +4,6 @@ if (process.env.NODE_ENV === 'development') {
   require('../index.html');
 }
 
-// console.log('webpack starterkit');
 
 class Piano {
   constructor(components) {
@@ -16,11 +15,31 @@ class Piano {
   }
   createPiano() {
     this.instrument.className = 'piano';
-    this.instrument.innerHTML = this.components;
+    this.instrument.innerHTML = `
+    <div class="piano__panel"></div>
+    <div class="piano__redLine"></div>
+    `;
     this.app.append(this.instrument);
   }
+
+  getKeys() {
+    let keysPromise = fetch('http://localhost:3000/keys').then(res => {
+      return res.json();
+    });
+    keysPromise.then (
+      res => {
+        let keyboard = new Piano(res);
+        keyboard.createKeyboard();
+      },
+      err => {
+        console.log('Error');
+      }
+    );
+  }
+
   createKeyboard() {
     this.keyboard.className = 'keyboard';
+
     let html = this.components.map(key => {
       let cls = 'key';
       switch(key.color) {
@@ -38,33 +57,26 @@ class Piano {
   }
 }
 
-function addBodyPiano() {
-  let bodyPiano = `
-  <div class="piano__panel"></div>
-  <div class="piano__redLine"></div>
-  `;
-  let piano = new Piano(bodyPiano);
-  piano.createPiano();
-}
 
-function getKeys() {
-  let keysPromise = fetch('http://localhost:3000/keys').then(res => {
-    return res.json();
-  });
-  keysPromise.then (
-    res => {
-      createKeys(res);
-    },
-    err => {
-      console.log('Error');
-    }
-  );
-}
+// function getKeys() {
+//   let keysPromise = fetch('http://localhost:3000/keys').then(res => {
+//     return res.json();
+//   });
+//   keysPromise.then (
+//     res => {
+//       let keyboard = new Piano(res);
+//       keyboard.createKeyboard();
+//     },
+//     err => {
+//       console.log('Error');
+//     }
+//   );
+// }
 
-function createKeys(keys) {  
-  let keyboard = new Piano(keys);  
-  keyboard.createKeyboard();
-}
+// function createKeys(keys) {  
+//   let keyboard = new Piano(keys);  
+//   keyboard.createKeyboard();
+// }
 class Tools {
   constructor(nameTools) {
     this.nameTools = nameTools;
@@ -73,12 +85,31 @@ class Tools {
     this.tools = document.createElement('div');
     this.musicClef = document.querySelector('#clef');
     this.currentNote = document.querySelector('.stan__note');
-
   }
-  addSelect() {
+  createSelect() {
     this.tools.className = 'tools';
-    this.tools.innerHTML = this.nameTools;
+    this.tools.innerHTML = `  
+    <select data-name='clef'>
+      <option value=${'treble'}>Скрипичный ключ</option>
+      <option value=${'bass'}>Басовый ключ</option>
+    </select>
+    <input type="checkbox" class="checkboxOctave" value="octaveOne" checked> 1-я октава
+    <input type="checkbox" class="checkboxOctave" value="octaveTwo" checked> 2-я октава
+    <input type="checkbox" class="checkboxOctave" value="octaveThree"> 3-я октава
+    <input type="checkbox" class="checkboxOctave" value="octaveFour"> 4-я октава
+    <input type="checkbox" class="checkboxOctave" value="octaveSmall"> малая октава
+    <input type="checkbox" class="checkboxOctave" value="octaveBig"> большая октава
+    <button class="start">Start</button>
+    `;
     this.app.prepend(this.tools);
+  }
+  createMusicStan() {
+    let musicStan = document.createElement('div');
+    musicStan.className = 'stan';
+    musicStan.innerHTML = `
+    <div class="stan__clef-treble" id="clef"></div>
+    <div class="stan__note"></div>`;
+    this.app.prepend(musicStan);
   }
   changeMusicClef() {
     switch(this.nameTools) {
@@ -134,42 +165,65 @@ class Tools {
       case 'si-two':
         this.currentNote.id = this.nameTools;
         break;
+      case 'do-three':
+        this.currentNote.id = this.nameTools;
+        break;
     }
   }
+  timerTestNote() {
+    alert('good!');
+  }
+
+  getRandomNote() {
+    let select = document.querySelector('select');
+    if(select.value === 'treble'){
+      let notes = pickNotes();
+      let key = getRandomInt(0, notes.length-1);
+      return notes[key];
+    }
+  }
+
+  addRandomNote() {
+    let note = new Tools().getRandomNote();
+    let tools = new Tools(note);
+    tools.changeNote();
+  }
+
 }
 
-function createMusicStan() {
-  let app = document.querySelector('.app');
-  let musicStan = document.createElement('div');
-  musicStan.className = 'stan';
-  musicStan.innerHTML = `
-  <div class="stan__clef-treble" id="clef"></div>
-  <div class="stan__note"></div>`;
-  app.prepend(musicStan);
-}
+// function createMusicStan() {
+//   let app = document.querySelector('.app');
+//   let musicStan = document.createElement('div');
+//   musicStan.className = 'stan';
+//   musicStan.innerHTML = `
+//   <div class="stan__clef-treble" id="clef"></div>
+//   <div class="stan__note"></div>`;
+//   app.prepend(musicStan);
+// }
 
-function createSelect() {
-  let selectClef = `  
-  <select data-name='clef'>
-    <option value=${'treble'}>Скрипичный ключ</option>
-    <option value=${'bass'}>Басовый ключ</option>
-  </select>
-  <input type="checkbox" class="checkboxOctave" value="octaveOne"> 1-я октава
-  <input type="checkbox" class="checkboxOctave" value="octaveTwo"> 2-я октава
-  <input type="checkbox" class="checkboxOctave" value="octaveThree"> 3-я октава
-  <input type="checkbox" class="checkboxOctave" value="octaveFour"> 4-я октава
-  <input type="checkbox" class="checkboxOctave" value="octaveSmall"> малая октава
-  <input type="checkbox" class="checkboxOctave" value="octaveBig"> большая октава
-  <button class="start">Start</button>
-  `;
-  let tools = new Tools(selectClef);
-  tools.addSelect();
-}
+// function createSelect() {
+//   let selectClef = `  
+//   <select data-name='clef'>
+//     <option value=${'treble'}>Скрипичный ключ</option>
+//     <option value=${'bass'}>Басовый ключ</option>
+//   </select>
+//   <input type="checkbox" class="checkboxOctave" value="octaveOne" checked> 1-я октава
+//   <input type="checkbox" class="checkboxOctave" value="octaveTwo" checked> 2-я октава
+//   <input type="checkbox" class="checkboxOctave" value="octaveThree"> 3-я октава
+//   <input type="checkbox" class="checkboxOctave" value="octaveFour"> 4-я октава
+//   <input type="checkbox" class="checkboxOctave" value="octaveSmall"> малая октава
+//   <input type="checkbox" class="checkboxOctave" value="octaveBig"> большая октава
+//   <button class="start">Start</button>
+//   `;
+//   let tools = new Tools(selectClef);
+//   tools.addSelect();
+// }
 
 function start() {
   let startBtn = document.querySelector('.start');
   startBtn.addEventListener('click', function() {
-    timerAddNote();
+    new Tools().addRandomNote();
+    new Tools().timerTestNote();
   });
 }
 
@@ -202,20 +256,17 @@ function pushKeys() {
       checkWin(noteName);
       soundClick(keyUrl);
       key.classList.add('key-push');
-      setTimeout(removeClassPush, 300, key);
+      setTimeout(removeClassPush, 100, key);
+      new Tools().addRandomNote();
     }
   });
 }
 
-function addRandomNote() {
-  let note = getRandomNote();
-  let tools = new Tools(note);
-  tools.changeNote();
-}
-
-function timerAddNote() {
-  setInterval(() => addRandomNote(), 3000);
-}
+// function addRandomNote() {
+//   let note = new Tools().getRandomNote();
+//   let tools = new Tools(note);
+//   tools.changeNote();
+// }
 
 function pickNotes() {
   let pickCheckboxes = document.querySelectorAll('.checkboxOctave');
@@ -232,21 +283,15 @@ function pickNotes() {
           notes.push('do-two', 're-two', 'mi-two', 'fa-two', 'sol-two', 'lya-two', 'si-two');
           break;
         }
+        case 'octaveThree': {
+          notes.push('do-three');
+          break;
+        }
       }
       
     }
   });
   return notes;
-}
-function getRandomNote() {
-  let select = document.querySelector('select');
-  if(select.value === 'treble'){
-    let notes = pickNotes();
-    let key = getRandomInt(0, notes.length-1);
-    return notes[key];
-  }
-  
-
 }
 
 function getRandomInt(min, max) {
@@ -257,7 +302,8 @@ function getRandomInt(min, max) {
 function checkWin(keyNote) {
   let currentNote = document.querySelector('.stan__note');
   let inf;
-  if (keyNote === currentNote.id) {
+  console.log(keyNote);
+  if (currentNote.id.includes(keyNote)) {
     inf = 'win!';
     inform(inf);
     console.log('win!');
@@ -294,10 +340,11 @@ usersPromise.then (
 }
 
 function init() {
-  addBodyPiano();
-  getKeys();
-  createSelect();
-  createMusicStan();
+  new Piano().createPiano();
+  new Piano().getKeys();
+  new Tools().createSelect();
+  new Tools().createMusicStan();
+  new Tools().addRandomNote();
   pushKeys();
   getUsers();
   selectClef();  
