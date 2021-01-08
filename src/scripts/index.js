@@ -39,7 +39,6 @@ class Piano {
 
   createKeyboard() {
     this.keyboard.className = 'keyboard';
-
     let html = this.components.map(key => {
       let cls = 'key';
       switch(key.color) {
@@ -67,7 +66,9 @@ class Tools {
     this.currentNote = document.querySelector('.stan__note');
     this.startBtn = document.querySelector('.start');
     this.infPanel = document.querySelector('.piano__panel');
-
+    this.select = document.querySelector('select');
+    this.pickCheckboxes = document.querySelectorAll('.checkboxOctave');
+    this.timer = document.querySelectorAll('.timer');
   }
   createSelect() {
     this.tools.className = 'tools';
@@ -82,6 +83,10 @@ class Tools {
     <input type="checkbox" class="checkboxOctave" value="octaveFour"> 4-я октава
     <input type="checkbox" class="checkboxOctave" value="octaveSmall"> малая октава
     <input type="checkbox" class="checkboxOctave" value="octaveBig"> большая октава
+    <div class="timer">
+      <input type="checkbox" class="timer" value="30000" checked> 30 секунд
+      <input type="checkbox" class="timer" value="60000"> 60 секунд
+    </div>
     <button class="start">Start</button>
     `;
     this.app.prepend(this.tools);
@@ -108,75 +113,104 @@ class Tools {
     switch(this.nameTools) {
       case 'do-one':
         this.currentNote.id = this.nameTools;
+        this.currentNote.dataset.name = this.nameTools.split('-')[0];
         break;
       case 're-one':
         this.currentNote.id = this.nameTools;
+        this.currentNote.dataset.name = this.nameTools.split('-')[0];
         break;
       case 'mi-one':
         this.currentNote.id = this.nameTools;
+        this.currentNote.dataset.name = this.nameTools.split('-')[0];
         break; 
       case 'fa-one':
         this.currentNote.id = this.nameTools;
+        this.currentNote.dataset.name = this.nameTools.split('-')[0];
         break;
       case 'sol-one':
         this.currentNote.id = this.nameTools;
+        this.currentNote.dataset.name = this.nameTools.split('-')[0];
         break;  
       case 'lya-one':
         this.currentNote.id = this.nameTools;
+        this.currentNote.dataset.name = this.nameTools.split('-')[0];
         break;
       case 'si-one':
         this.currentNote.id = this.nameTools;
+        this.currentNote.dataset.name = this.nameTools.split('-')[0];
         break;
       case 'do-two':
         this.currentNote.id = this.nameTools;
+        this.currentNote.dataset.name = this.nameTools.split('-')[0];
         break;
       case 're-two':
         this.currentNote.id = this.nameTools;
+        this.currentNote.dataset.name = this.nameTools.split('-')[0];
         break;
       case 'mi-two':
         this.currentNote.id = this.nameTools;
+        this.currentNote.dataset.name = this.nameTools.split('-')[0];
         break; 
       case 'fa-two':
         this.currentNote.id = this.nameTools;
+        this.currentNote.dataset.name = this.nameTools.split('-')[0];
         break;
       case 'sol-two':
         this.currentNote.id = this.nameTools;
+        this.currentNote.dataset.name = this.nameTools.split('-')[0];
         break;  
       case 'lya-two':
         this.currentNote.id = this.nameTools;
+        this.currentNote.dataset.name = this.nameTools.split('-')[0];
         break;
       case 'si-two':
         this.currentNote.id = this.nameTools;
+        this.currentNote.dataset.name = this.nameTools.split('-')[0];
         break;
       case 'do-three':
         this.currentNote.id = this.nameTools;
+        this.currentNote.dataset.name = this.nameTools.split('-')[0];
         break;
     }
   }
-  timerTestNote() {
-    alert('good!');
-  }
 
   getRandomNote() {
-    let select = document.querySelector('select');
-    if(select.value === 'treble'){
+    if(this.select.value === 'treble'){
       let notes = new Tools().pickNotes();
       let key = new Tools().getRandomInt(0, notes.length-1);
       return notes[key];
     }
   }
 
+  start() {
+      this.startBtn.addEventListener('click', () => {
+      this.startBtn.dataset.status = 'enabled';
+      new Tools().addRandomNote();
+      let interval = +new Tools().getTimer();
+      console.log(interval);
+      setTimeout(this.changeStatusBtnStart.bind(this.startBtn), interval);
+    });
+  }
+
+  getTimer() {
+    let interval;
+    this.timer.forEach(box => {
+      if (box.checked) {
+        interval = box.value;
+      }
+    });
+    return interval;
+  }
+ 
   addRandomNote() {
     let note = new Tools().getRandomNote();
     let tools = new Tools(note);
     tools.changeNote();
   }
 
-  start() {
-      this.startBtn.addEventListener('click', function() {
-      new Tools().addRandomNote();
-      new Tools().timerTestNote();
-    });
+  changeStatusBtnStart() {
+    this.dataset.status = 'disabled';
+    console.log(this.dataset.status);
   }
 
   selectClef() {
@@ -195,22 +229,17 @@ class Tools {
   }
 
   checkWin(keyNote) {
-    let currentNote = document.querySelector('.stan__note');
     let inf;
-    console.log(keyNote);
-    if (currentNote.id.includes(keyNote)) {
-      inf = 'win!';
-      this.infPanel.innerText = inf;
+    if (this.currentNote.id.includes(keyNote)) {
+      this.infPanel.innerText = `Молодец!`;
     } else {
-      inf = 'loose!';
-      this.infPanel.innerText = inf;
+      inf = this.currentNote.dataset.name;
+      this.infPanel.innerText = `Не верно! Верная нота: ${inf}`;
       }
   }
   pickNotes() {
-    let pickCheckboxes = document.querySelectorAll('.checkboxOctave');
     let notes = [];
-    pickCheckboxes.forEach(box => {
-  
+    this.pickCheckboxes.forEach(box => {  
       if(box.checked) {
         switch (box.value) {
           case 'octaveOne': {
@@ -225,48 +254,53 @@ class Tools {
             notes.push('do-three');
             break;
           }
-        }
-        
+        }        
       }
     });
     return notes;
   }
   pushKeys() {
-    document.addEventListener('click', function(e) {
+    document.addEventListener('click', (e) => {
       if(e.target.className === 'key key__white' || e.target.className === 'key key__black') {
         let key = e.target;
         let keyUrl = e.target.dataset.url;
-        let noteName = e.target.dataset.name;
-        new Tools().checkWin(noteName);
+        let keyName = e.target.dataset.name;
+        new Tools().checkWin(keyName);
         new Tools().soundClick(keyUrl);
         key.classList.add('key-push');
         setTimeout(new Tools().removeClassPush, 50, key);
-        new Tools().addRandomNote();
+        if (keyName === this.currentNote.dataset.name) {
+          new Tools().addRandomNote();
+        } else if (this.startBtn.dataset.status === 'enabled') {
+          new Tools().addRandomNote();
+        }
       }
     });
   }
   removeClassPush(key) {
     key.classList.remove('key-push');
   }    
-
   getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
-  
+  }  
 }
-
-function getUsers() {
-  let usersPromise = fetch('http://localhost:3000/users').then(res => {
-	return res.json();
-});
-usersPromise.then (
-	res => {
-		// console.log(res);
-	},
-	err => {
-    console.log('Error');
-	}
-);
+class User {
+  constructor(name) {
+    this.name = name;
+  }  
+  getUsers() {
+    let usersPromise = fetch('http://localhost:3000/users').then(res => {
+    return res.json();
+  });
+  usersPromise.then (
+    res => {
+      // console.log(res);
+    },
+    err => {
+      console.log('Error');
+    }
+  );
+  }
 }
 
 function init() {
@@ -278,7 +312,6 @@ function init() {
   new Tools().pushKeys();
   new Tools().selectClef();  
   new Tools().start();
-  getUsers();
 }
 
 init();
